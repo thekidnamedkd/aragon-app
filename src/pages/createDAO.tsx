@@ -391,6 +391,9 @@ export const CreateDAO: React.FC = () => {
             <SetupCommunity />
           </Step>
           <Step
+            // *** optionally leaving previous common.js pointers which now work correctly also ***
+            // wizardTitle={t('createDao.stepCommunityVoting.title')}
+            // wizardDescription={htmlIn(t)('createDao.stepCommunityVoting.desc')}
             wizardTitle={t('createDAO.step4.title')}
             wizardDescription={htmlIn(t)('createDAO.step4.description')}
             isNextButtonDisabled={!daoCommunityConfigurationIsValid}
