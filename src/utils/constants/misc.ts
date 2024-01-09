@@ -69,6 +69,8 @@ export const EXPLORE_NAV_LINKS = [
   {
     label: i18n.t('navLinks.exploreLinkLabel'),
     path: i18n.t('navLinks.exploreLinkURL'),
+    // example of disabling a nav link
+    disabled: true,
   },
   {
     label: i18n.t('navLinks.learnLinkLabel'),
