@@ -16,8 +16,8 @@ export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   type?: LinkType;
 };
 
-export const LINK_VARIANTS = ['primary', 'neutral'] as const;
-type LinkType = (typeof LINK_VARIANTS)[number];
+export const LINK_VARIANTS = ['primary', 'neutral', 'inverted'] as const;
+export type LinkType = (typeof LINK_VARIANTS)[number];
 
 /**
  * The Link component creates a styled anchor element with optional icon and description.
@@ -65,11 +65,10 @@ type StyledLinkProps = Pick<LinkProps, 'disabled'> & {
   type: NonNullable<LinkProps['type']>;
 };
 
-const StyledLink = styled.a.attrs<StyledLinkProps>(({disabled, type}) => {
+const StyledLink = styled.a.attrs<StyledLinkProps>(({type}) => {
   let className =
     'inline-flex flex-col gap-y-0.5 md:gap-y-1 max-w-full rounded cursor-pointer ';
   className += variants[type];
-  className += disabled ? disabledColors[type] : defaultColors[type];
 
   return {className};
 })<StyledLinkProps>`
@@ -85,19 +84,10 @@ const Description = styled.p.attrs({
 })``;
 
 const variants = {
-  primary: `hover:text-primary-600 active:text-primary-800
-        focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-neutral-50 `,
-
-  neutral: `hover:text-neutral-800 active:text-neutral-800
-        focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-neutral-50 `,
-};
-
-const disabledColors = {
-  primary: 'text-neutral-300 pointer-events-none ',
-  neutral: 'text-neutral-300 pointer-events-none ',
-};
-
-const defaultColors = {
-  primary: 'text-primary-400 ',
-  neutral: 'text-neutral-600 ',
+  primary: `text-primary-400 hover:text-primary-600 active:text-primary-800
+            focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-neutral-50 disabled:text-neutral-300`,
+  neutral: `text-neutral-600 hover:text-neutral-600 active:text-neutral-800
+            focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-neutral-50 disabled:text-neutral-300`,
+  inverted: `text-neutral-0 hover:text-neutral-100 active:text-neutral-200
+            focus-visible:ring focus-visible:ring-primary-200 focus-visible:bg-neutral-50 disabled:text-neutral-300 `,
 };
