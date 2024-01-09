@@ -1,8 +1,11 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import VariantFooter from '../index';
+import {
+  VariantFooter,
+  FOOTER_VARIANTS,
+  footerStyleVariants,
+} from '../../variantFooter';
 import {EXPLORE_NAV_LINKS, PRIVACY_NAV_LINKS} from 'utils/constants';
-import {variants, FOOTER_VARIANTS} from '../index';
 
 jest.mock('hooks/useScreen', () => ({
   __esModule: true,
@@ -42,7 +45,7 @@ describe('VariantFooter', () => {
     it(`renders the ${variant} variant correctly`, () => {
       require('hooks/useScreen').default.mockReturnValue({isDesktop: true});
       render(<VariantFooter variant={variant} />);
-      const variantStyles = variants[variant];
+      const variantStyles = footerStyleVariants[variant];
       expect(screen.getByTestId('footer')).toHaveClass(variantStyles.bgColor);
 
       if (variantStyles.renderGradients) {
