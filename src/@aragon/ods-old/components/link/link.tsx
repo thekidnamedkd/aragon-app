@@ -39,9 +39,17 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     },
     ref
   ) => {
+    const handleClick = (
+      e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    ) => {
+      if (disabled) {
+        e.preventDefault();
+      }
+    };
     return (
       <StyledLink
         ref={ref}
+        onClick={handleClick}
         href={disabled ? undefined : href}
         rel="noopener noreferrer"
         type={type}
@@ -66,10 +74,11 @@ type StyledLinkProps = Pick<LinkProps, 'disabled'> & {
   type: NonNullable<LinkProps['type']>;
 };
 
-const StyledLink = styled.a.attrs<StyledLinkProps>(({type}) => {
+const StyledLink = styled.a.attrs<StyledLinkProps>(({type, disabled}) => {
   const className = cn(
     'inline-flex flex-col gap-y-0.5 md:gap-y-1 max-w-full rounded cursor-pointer ',
-    variants[type]
+    variants[type],
+    {'text-neutral-300 cursor-not-allowed': disabled}
   );
 
   return {className};

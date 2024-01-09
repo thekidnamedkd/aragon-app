@@ -47,8 +47,13 @@ export const footerStyleVariants: Record<FooterVariants, VariantStyles> = {
   },
 };
 
+const getVariantStyles = (variant: FooterVariants): VariantStyles => {
+  return footerStyleVariants[variant] || footerStyleVariants['default'];
+};
+
+/** navlink refactor to DRY up maps, single implementation of atomic Link component, also types links */
 type NavLinkProps = {
-  links: {label: string; path: string}[];
+  links: {path: string; label: string; disabled?: boolean}[];
   linkType: LinkType;
 };
 
@@ -56,16 +61,16 @@ const NavLinks: React.FC<NavLinkProps> = ({links, linkType}) => (
   <StyledNavList>
     {links.map(item => (
       <li key={item.label}>
-        <Link href={item.path} label={item.label} type={linkType} />
+        <Link
+          href={item.path}
+          label={item.label}
+          type={linkType}
+          disabled={item.disabled}
+        />
       </li>
     ))}
   </StyledNavList>
 );
-
-const getVariantStyles = (variant: FooterVariants): VariantStyles => {
-  return footerStyleVariants[variant] || footerStyleVariants['default'];
-};
-
 interface FooterProps {
   variant: FooterVariants;
 }
@@ -78,13 +83,13 @@ const VariantFooter: React.FC<FooterProps> = ({variant = 'default'}) => {
     <Section bgColor={v.bgColor} data-testid="footer">
       <GridLayout>
         <FullSpan>
+          {/* conidtional render of gradients from variant styles */}
           {v.renderGradients && (
             <div className="relative" data-testid="gradient">
               <LeftGradient />
               <RightGradient />
             </div>
           )}
-
           <ActionContainer>
             {isDesktop ? (
               <>
@@ -112,6 +117,7 @@ const VariantFooter: React.FC<FooterProps> = ({variant = 'default'}) => {
           </ActionContainer>
         </FullSpan>
       </GridLayout>
+      {/* moved div with inline to SC below for cohesion */}
       <Beta>
         <IconInfo />
         <span>Aragon App Public Beta</span>
