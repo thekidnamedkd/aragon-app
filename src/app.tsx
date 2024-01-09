@@ -5,7 +5,7 @@ import {Navigate, Outlet, Route, useLocation} from 'react-router-dom';
 import {GridLayout} from 'components/layout';
 import ProtectedRoute from 'components/protectedRoute';
 import {Loading} from 'components/temporary/loading';
-import VariantFooter from 'containers/variantFooter';
+import {VariantFooter} from 'containers/variantFooter';
 import Navbar from 'containers/navbar';
 import DaoSelectMenu from 'containers/navbar/daoSelectMenu';
 import ExploreNav from 'containers/navbar/exploreNav';

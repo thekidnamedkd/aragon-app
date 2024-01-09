@@ -2,6 +2,7 @@ import React from 'react';
 import {styled} from 'styled-components';
 
 import {type IconType} from '../icons';
+import {cn} from 'utils/cn';
 
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   disabled?: boolean;
@@ -66,9 +67,10 @@ type StyledLinkProps = Pick<LinkProps, 'disabled'> & {
 };
 
 const StyledLink = styled.a.attrs<StyledLinkProps>(({type}) => {
-  let className =
-    'inline-flex flex-col gap-y-0.5 md:gap-y-1 max-w-full rounded cursor-pointer ';
-  className += variants[type];
+  const className = cn(
+    'inline-flex flex-col gap-y-0.5 md:gap-y-1 max-w-full rounded cursor-pointer ',
+    variants[type]
+  );
 
   return {className};
 })<StyledLinkProps>`
